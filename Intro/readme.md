@@ -143,3 +143,37 @@ let  hasPermission = false;
 - Names must start with a letter, `_`, or `$` — no spaces, no reserved words.
 
 - Use **camelCase** for variables, **PascalCase** for classes, **UPPER_SNAKE_CASE** for constants.
+
+
+
+## Variables
+
+### Primitive Variables (Data Types)
+
+JavaScript has **7 primitive data types** (values that are not objects and have no methods):
+
+- **`string`** – Text (e.g., `"Hello"`, `'World'`)
+- **`number`** – Integers and floating-point numbers (e.g., `42`, `3.14`)
+- **`boolean`** – Logical values: `true` or `false`
+- **`undefined`** – Automatically assigned when a variable is declared but not initialized
+- **`null`** – Intentional absence of any object or value
+- **`symbol`** – Unique and immutable identifiers (used for object keys)
+
+Primitives are passed by **value** (a copy is made when passed to functions), and they are immutable (you can't change the value itself, only reassign the variable).
+
+### Ways to Create a String Variable (3 Common Ways)
+
+```javascript
+// 1. Double quotes
+let str1 = "Hello, World!";
+
+// 2. Single quotes
+let str2 = 'JavaScript is awesome';
+
+// 3. Template literals (backticks) - supports interpolation and multiline
+let name = "Alice";
+let str3 = `Welcome, ${name}!
+This is a multiline string.`;
+```
+  
+
