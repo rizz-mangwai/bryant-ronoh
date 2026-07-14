@@ -4,11 +4,21 @@
 loops: 1: start point, 2:condition, 3: afteritteration
 combines it into one statement 
 */
-let k = 0
-while(k < 20 ){
-    console.log("k", k)
-    k = k + 1
+
+//
+///
+function mathTable(){
+    num1 = Number(prompt("enter first number"))
+    num2 = Number(prompt("enter number 2"))
+    if(num1 > 1 && num2 > 1){
+      for (let b = 1;b<=num1;b++){
+        for(let k = 1;k<=num2;k++){
+            console.log(`${b}x${k}=${b*k}`)
+        }
+      }
+    }
+    else{
+        alert("both numbers are >1")
+    }
 }
-for (let k = 0; k < 20; k =k +1){
-    console.log("K", k)
-}
+mathTable()
