@@ -1,11 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-
-import StateAndEvents from "./amzon2.0/clickMe.jsx"
+import ClickMe from "./amzon2.0/clickMe.jsx"
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <StateAndEvents />
+    <ClickMe />
   </StrictMode>,
 );
