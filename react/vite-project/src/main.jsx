@@ -2,10 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 
-import StateAndEvents from "./amzon2.0/clickMe.jsx"
+import GitHubProject from './github project';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <StateAndEvents />
+    <GitHubProject />
   </StrictMode>,
 );
