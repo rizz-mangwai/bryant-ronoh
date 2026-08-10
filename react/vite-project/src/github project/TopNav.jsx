@@ -15,7 +15,7 @@ function TopNav({ setPeople }) {          // ← receive setPeople as prop
         method: "GET",
         url: "https://api.github.com/search/users",
         headers: {                                   // ← lowercase "headers"
-          Authorization: `REMOVED`,  // use your valid token
+          Authorization: ,  // use your valid token
           Accept: "application/vnd.github+json",
         },
         params: {
