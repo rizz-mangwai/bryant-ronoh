@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model member {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String           @db.VarChar(250)
+  email           String           @unique @db.VarChar(250)
+  phone           String?          @db.VarChar(50)
+  created_at      DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime         @default(now()) @db.Timestamptz(6)
+  member_password member_password?
+  order           order[]
+}
+
+model member_password {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  member_id  String   @unique @db.Uuid
+  password   String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  member     member   @relation(fields: [member_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model order {
+  id                  BigInt          @id @default(autoincrement())
+  member_id           String          @db.Uuid
+  order_status_id     BigInt
+  total_selling_price BigInt          @default(0)
+  total_paid          BigInt          @default(0)
+  created_at          DateTime        @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime        @default(now()) @db.Timestamptz(6)
+  member              member          @relation(fields: [member_id], references: [id], onUpdate: NoAction)
+  order_status        order_status    @relation(fields: [order_status_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  order_product       order_product[]
+}
+
+model order_product {
+  id                  BigInt   @id @default(autoincrement())
+  order_id            BigInt
+  product_id          BigInt
+  qty                 BigInt   @default(1)
+  unit_selling_price  BigInt
+  unit_buying_price   BigInt
+  total_selling_price BigInt
+  total_buying_price  BigInt
+  created_at          DateTime @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime @default(now()) @db.Timestamptz(6)
+  order               order    @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product             product  @relation(fields: [product_id], references: [id], onUpdate: NoAction)
+}
+
+model order_status {
+  id          BigInt   @id @default(autoincrement())
+  name        String   @unique @db.VarChar(100)
+  description String?
+  icon_name   String?  @db.VarChar(100)
+  badge_color String?  @db.VarChar(50)
+  text_color  String?  @db.VarChar(50)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @default(now()) @db.Timestamptz(6)
+  order       order[]
+}
+
+model product {
+  id            BigInt          @id @default(autoincrement())
+  name          String          @db.VarChar(250)
+  description   String?
+  selling_price BigInt          @default(0)
+  buying_price  BigInt          @default(0)
+  qty           BigInt          @default(0)
+  created_at    DateTime        @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime        @default(now()) @db.Timestamptz(6)
+  order_product order_product[]
+  product_image product_image[]
+}
+
+model product_image {
+  id         BigInt   @id @default(autoincrement())
+  product_id BigInt
+  img        String
+  is_default Boolean  @default(false)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  product    product  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
